@@ -1,0 +1,700 @@
+openapi: 3.0.3
+info:
+  title: JnKs Bartending Services - OpenAPI 3.0
+  description: Bartending services offers..
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  version: 1.0 s
+servers:
+- url: https://jnksbartendingservices.swagger.io/api/v3
+tags:
+- name: user
+  description: Everything about your users
+paths:
+  /user:
+    get:
+      tags:
+      - user
+      summary: get the user
+      description: get user
+      operationId: get_user
+      parameters:
+      - name: username
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: user.one
+      responses:
+        "200":
+          description: user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserResponse'
+        "400":
+          description: bad request
+      security:
+      - access_token: []
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+    put:
+      tags:
+      - user
+      summary: edit user
+      description: edit user
+      operationId: edit_user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditUserRequest'
+      responses:
+        "200":
+          description: User edited
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: bad request
+      security:
+      - access_token: []
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+    post:
+      tags:
+      - user
+      summary: add the user
+      description: add the user
+      operationId: add_user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddUserRequest'
+      responses:
+        "200":
+          description: user created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+        "400":
+          description: bad request
+      security:
+      - access_token: []
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+  /user/edit:
+    put:
+      tags:
+      - user
+      summary: edit user balance
+      description: edit balance
+      operationId: edit_balance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditBalanceRequest'
+      responses:
+        "200":
+          description: balance edited
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+      security:
+      - access_token: []
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+  /user/SignUp:
+    post:
+      tags:
+      - user
+      summary: Sign up user
+      description: Sign up user
+      operationId: signup_user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupRequest'
+      responses:
+        "200":
+          description: Sign up succesfull
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+  /user/login:
+    post:
+      tags:
+      - user
+      summary: login user
+      description: login user
+      operationId: login_user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        "200":
+          description: login succesfull
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+  /drink:
+    get:
+      tags:
+      - drink
+      summary: get the drink
+      description: get drink
+      operationId: get_drink
+      parameters:
+      - name: name
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: beer
+      - name: ingredients
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - whiskey
+        - wine
+      responses:
+        "200":
+          description: drink
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDrinkResponse'
+      x-openapi-router-controller: swagger_server.controllers.drink_controller
+    put:
+      tags:
+      - drink
+      summary: edit drink
+      description: edit drink
+      operationId: edit_drink
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditDrinkRequest'
+      responses:
+        "200":
+          description: drink updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_4'
+        "400":
+          description: bad request
+      security:
+      - access_token: []
+      x-openapi-router-controller: swagger_server.controllers.drink_controller
+    post:
+      tags:
+      - drink
+      summary: add drink
+      description: add the drink
+      operationId: add_drink
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddDrinkRequest'
+      responses:
+        "200":
+          description: item created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_5'
+        "400":
+          description: bad request
+      security:
+      - access_token: []
+      x-openapi-router-controller: swagger_server.controllers.drink_controller
+  /drink/purchase:
+    post:
+      tags:
+      - drink
+      summary: Purchasee Drink
+      description: Purchase drink
+      operationId: purchase_drink
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseDrinkRequest'
+      responses:
+        "200":
+          description: drink purchased
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_6'
+        "400":
+          description: bad request
+      security:
+      - access_token: []
+      x-openapi-router-controller: swagger_server.controllers.drink_controller
+  /orders:
+    get:
+      tags:
+      - orders
+      summary: get the customer orders
+      description: get customer orders
+      operationId: get_order
+      parameters:
+      - name: customer_name
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: jana
+      - name: date_from
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date-time
+      - name: date_to
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date-time
+      responses:
+        "200":
+          description: drink
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrdersResponse'
+      x-openapi-router-controller: swagger_server.controllers.orders_controller
+components:
+  schemas:
+    AddUserRequest:
+      required:
+      - date of birth
+      - email
+      - name
+      - password
+      - role
+      - user balance
+      - username
+      type: object
+      properties:
+        name:
+          type: string
+          example: jana kasamani
+        email:
+          type: string
+          example: Jana.Kasamani@mail.com
+        username:
+          type: string
+          example: jana.kasamani
+        password:
+          minLength: 4
+          pattern: "([A-Za-z])\\w+"
+          type: string
+          example: 124J
+        date of birth:
+          type: string
+          format: date-time
+        role:
+          type: string
+          enum:
+          - customer
+          - admin
+        user balance:
+          type: number
+          format: float
+          example: 100
+      additionalProperties: false
+    GetUserResponse:
+      required:
+      - date of birth
+      - email
+      - name
+      - password
+      - role
+      - user balance
+      - username
+      type: object
+      properties:
+        name:
+          type: string
+          example: jana kasamani
+        email:
+          type: string
+          example: Jana.Kasamani@mail.com
+        username:
+          type: string
+          example: jana.kasamani
+        password:
+          minLength: 4
+          pattern: "([A-Za-z])\\w+"
+          type: string
+          example: 124J
+        date of birth:
+          type: string
+          format: date-time
+        role:
+          type: string
+          enum:
+          - customer
+          - admin
+        user balance:
+          type: number
+          format: float
+          example: 100
+      additionalProperties: false
+      example:
+        password: 124J
+        role: customer
+        name: jana kasamani
+        user balance: 100
+        email: Jana.Kasamani@mail.com
+        date of birth: 2000-01-23T04:56:07.000+00:00
+        username: jana.kasamani
+    EditUserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: jana kasamani
+        email:
+          type: string
+          example: Jana.Kasamani@mail.com
+        username:
+          type: string
+          example: jana.kasamani
+        password:
+          minLength: 4
+          pattern: "([A-Za-z])\\w+"
+          type: string
+          example: 124J
+        date of birth:
+          type: string
+          format: date-time
+        role:
+          type: string
+          enum:
+          - customer
+          - admin
+        user balance:
+          type: number
+          format: float
+          example: 100
+      additionalProperties: false
+    LoginRequest:
+      required:
+      - password
+      - username
+      type: object
+      properties:
+        username:
+          type: string
+          example: jana.kasamani
+        password:
+          minLength: 4
+          pattern: "([A-Za-z])\\w+"
+          type: string
+          example: 124J
+      additionalProperties: false
+    LoginResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Login succesfull
+        token:
+          type: string
+      additionalProperties: false
+      example:
+        message: Login succesfull
+        token: token
+    SignupRequest:
+      required:
+      - date of birth
+      - email
+      - name
+      - password
+      - username
+      type: object
+      properties:
+        name:
+          type: string
+          example: jana kasamani
+        email:
+          type: string
+          example: Jana.Kasamani@mail.com
+        username:
+          type: string
+          example: jana.kasamani
+        password:
+          minLength: 4
+          pattern: "([A-Za-z])\\w+"
+          type: string
+          example: 124J
+        date of birth:
+          type: string
+          format: date-time
+      additionalProperties: false
+    EditBalanceRequest:
+      required:
+      - user balance
+      - username
+      type: object
+      properties:
+        username:
+          type: string
+          example: jana.kasamani
+        user balance:
+          type: number
+          format: float
+          example: 100
+      additionalProperties: false
+    AddDrinkRequest:
+      required:
+      - drink_description
+      - ingredients
+      - is_active
+      - name
+      - price
+      - quantity
+      type: object
+      properties:
+        name:
+          type: string
+          example: new york sour
+        ingredients:
+          type: array
+          example:
+          - whiskey
+          - wine
+          items:
+            type: string
+        drink_description:
+          type: string
+          example: wingman drink
+        price:
+          minimum: 0
+          type: number
+          format: float
+          example: 6
+        quantity:
+          type: integer
+          example: 10
+        is_active:
+          type: boolean
+          example: true
+      additionalProperties: false
+    PurchaseDrinkRequest:
+      minItems: 1
+      uniqueItems: true
+      type: array
+      items:
+        $ref: '#/components/schemas/PurchaseDrinkRequest_inner'
+    EditDrinkRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: new york sour
+        ingredients:
+          type: array
+          example:
+          - whiskey
+          - wine
+          items:
+            type: string
+        price:
+          type: number
+          format: float
+          example: 6
+        quantity:
+          type: integer
+          example: 10
+        is_active:
+          type: boolean
+          example: true
+      additionalProperties: false
+    GetDrinkResponse:
+      required:
+      - drink_description
+      - ingredients
+      - is_active
+      - name
+      - price
+      - quantity
+      type: object
+      properties:
+        name:
+          type: string
+          example: new york sour
+        ingredients:
+          type: array
+          example:
+          - whiskey
+          - wine
+          items:
+            type: string
+        drink_description:
+          type: string
+          example: wingman drink
+        price:
+          type: number
+          format: float
+          example: 6
+        quantity:
+          type: integer
+          example: 10
+        is_active:
+          type: boolean
+          example: true
+      additionalProperties: false
+      example:
+        quantity: 10
+        is_active: true
+        drink_description: wingman drink
+        price: 6
+        name: new york sour
+        ingredients:
+        - whiskey
+        - wine
+    GetOrdersResponse:
+      minItems: 1
+      uniqueItems: true
+      type: array
+      items:
+        $ref: '#/components/schemas/GetOrdersResponse_inner'
+    inline_response_200:
+      type: object
+      properties:
+        message:
+          type: string
+          example: user edited succesfully
+      additionalProperties: false
+      example:
+        message: user edited succesfully
+    inline_response_200_1:
+      type: object
+      properties:
+        message:
+          type: string
+          example: hello
+      additionalProperties: false
+      example:
+        message: hello
+    inline_response_200_2:
+      type: object
+      properties:
+        message:
+          type: string
+          example: balance edited succesfully
+      additionalProperties: false
+      example:
+        message: balance edited succesfully
+    inline_response_200_3:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Signup succesfull
+      additionalProperties: false
+      example:
+        message: Signup succesfull
+    inline_response_200_4:
+      type: object
+      properties:
+        message:
+          type: string
+          example: drink updated succesfully
+      additionalProperties: false
+      example:
+        message: drink updated succesfully
+    inline_response_200_5:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Item created succesfully
+      additionalProperties: false
+      example:
+        message: Item created succesfully
+    inline_response_200_6:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Drink purchased succesfully
+      additionalProperties: false
+      example:
+        message: Drink purchased succesfully
+    PurchaseDrinkRequest_inner:
+      required:
+      - name
+      - quantity
+      type: object
+      properties:
+        name:
+          type: string
+          example: new york sour
+        quantity:
+          type: integer
+          example: 4
+      additionalProperties: false
+    GetOrdersResponse_inner:
+      required:
+      - name
+      - price_paid
+      - quantity
+      type: object
+      properties:
+        name:
+          type: string
+          example: new york sour
+        quantity:
+          type: integer
+          example: 4
+        price_paid:
+          minimum: 0
+          type: number
+          format: float
+          example: 6
+      additionalProperties: false
+      example:
+        quantity: 4
+        price_paid: 6
+        name: new york sour
+  securitySchemes:
+    access_token:
+      type: apiKey
+      name: access_token
+      in: header
+      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_access_token
+
